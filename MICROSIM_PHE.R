@@ -3,7 +3,7 @@
 ############################################################################################
 # This code forms the basis for the microsimulation model of the article: 
 #
-# Diana Marcela Nova Díaz, Sergio Aguilera Albesa, Eduardo Sánchez Iriso. 
+# Diana Marcela Nova DÃ­az, Sergio Aguilera Albesa, Eduardo SÃ¡nchez Iriso. 
 # Microsimulation modeling for health decision sciences using R: A tutorial. 
 # Cost-Effectiveness Analysis of Complementary and Alternative Therapies in Children with Cerebral Palsy
 #
@@ -233,9 +233,9 @@ QALYs_gained_TC_vs_no_trt <- sim_TC$te_hat - sim_no_trt$te_hat      # QALYs gain
 QALYs_gained_TAL_vs_no_trt <- sim_TAL$te_hat - sim_no_trt$te_hat    # QALYs gained between Alternative Therapy and No Treatment
 
 # Show earned QALYs
-cat("QALYs ganados con tratamiento estándar respecto a no tratamiento:", QALYs_gained_trt_vs_no_trt, "\n")
-cat("QALYs ganados con terapia complementaria respecto a no tratamiento:", QALYs_gained_TC_vs_no_trt, "\n")
-cat("QALYs ganados con terapia alternativa respecto a no tratamiento:", QALYs_gained_TAL_vs_no_trt, "\n")
+cat("QALYs gained with standard treatment vs. no treatment:", QALYs_gained_trt_vs_no_trt, "\n")
+cat("QALYs gained with complementary therapy vs. no treatment:", QALYs_gained_TC_vs_no_trt, "\n")
+cat("QALYs gained with alternative therapy vs. no treatment:", QALYs_gained_TAL_vs_no_trt, "\n")
 
 # Print the table
 table_micro <- data.frame(
@@ -253,35 +253,7 @@ table_micro <- data.frame(
 # Showing results
 print(table_micro)
 
-
-##########Comparisons vs. standard treatment (Trt = 1)######################################################
-
-# Calcular los costos y QALYs incrementales
-delta.C <- v.C[2] - v.C[1]    # calculate incremental costs
-delta.E <- v.E[2] - v.E[1]    # calculate incremental QALYs
-se.delta.C <- sd(sim_trt$tc - sim_no_trt$tc) / sqrt(n.i)
-se.delta.E <- sd(sim_trt$te - sim_no_trt$te) / sqrt(n.i)
-ICER <- delta.C / delta.E
-
-
-# Comparación con tratamiento estándar como referencia
-delta.C_TC  <- v.C[3] - v.C[2]   # Complementarias vs estándar
-delta.E_TC  <- v.E[3] - v.E[2]
-ICER_TC     <- delta.C_TC / delta.E_TC
-
-delta.C_TAL <- v.C[4] - v.C[2]   # Alternativas vs estándar
-delta.E_TAL <- v.E[4] - v.E[2]
-ICER_TAL    <- delta.C_TAL / delta.E_TAL
-
-table_micro_comparativa <- data.frame(
-  Comparison = c("Complementary vs Standard", "Alternative vs Standard"),
-  Incremental_Costs = c(round(delta.C_TC, 0), round(delta.C_TAL, 0)),
-  Incremental_QALYs = c(round(delta.E_TC, 3), round(delta.E_TAL, 3)),
-  ICER = c(round(ICER_TC, 0), round(ICER_TAL, 0))
-)
-
-print(table_micro_comparativa)
-
+##########If we want to do Comparisons vs. standard treatment (Trt = 1)######################################################
 
 # Comparisons vs. standard treatment (Trt = 1)
 delta.C_TC_vs_Trt <- v.C[3] - v.C[2]
@@ -291,8 +263,6 @@ ICER_TC_vs_Trt <- delta.C_TC_vs_Trt / delta.E_TC_vs_Trt
 delta.C_TAL_vs_Trt <- v.C[4] - v.C[2]
 delta.E_TAL_vs_Trt <- v.E[4] - v.E[2]
 ICER_TAL_vs_Trt <- delta.C_TAL_vs_Trt / delta.E_TAL_vs_Trt
-
-
 
 #Table 2, comparing against the standard treatment
 
@@ -309,60 +279,18 @@ table_micro_vs_trt <- data.frame(
 
 print(table_micro_vs_trt)
 
-# Crear un dataframe con los resultados incrementales
-df_plot <- data.frame(
-  Incremental_Costs = c(delta.C_TC, delta.C_TAL),
-  Incremental_QALYs = c(delta.E_TC, delta.E_TAL),
-  Intervención = c("Complementary", "Alternative")
-)
 
-# Crear el gráfico de dispersión
-library(ggplot2)
 
-ggplot(df_plot, aes(x = Incremental_QALYs, y = Incremental_Costs, color = Intervención)) +
-  geom_point(size = 4) +
-  geom_hline(yintercept = 0, linetype = "dashed", color = "grey50") +
-  geom_vline(xintercept = 0, linetype = "dashed", color = "grey50") +
-  labs(
-    title = "Costos y QALYs incrementales frente al tratamiento estándar",
-    x = "QALYs Incrementales",
-    y = "Costos Incrementales (???)"
-  ) +
-  theme_minimal()
 
-# Crear el mismo dataframe con ICER
-df_efficiency <- df_plot
-df_efficiency$ICER <- c(ICER_TC, ICER_TAL)
 
-# Ordenar por QALYs
-df_efficiency <- df_efficiency[order(df_efficiency$Incremental_QALYs), ]
 
-# Gráfico con líneas conectando los puntos (eficiencia)
-ggplot(df_efficiency, aes(x = Incremental_QALYs, y = Incremental_Costs, label = Intervención)) +
-  geom_point(size = 4, color = "steelblue") +
-  geom_line(linetype = "solid", color = "steelblue") +
-  geom_text(vjust = -1) +
-  labs(
-    title = "Frontera de eficiencia: comparación con tratamiento estándar",
-    x = "QALYs Incrementales",
-    y = "Costos Incrementales (???)"
-  ) +
-  theme_minimal()
-# Crear el gráfico con WTP
-ggplot(df_plot, aes(x = Incremental_QALYs, y = Incremental_Costs, color = Intervención)) +
-  geom_point(size = 4) +
-  geom_hline(yintercept = 0, linetype = "dashed", color = "grey50") +
-  geom_vline(xintercept = 0, linetype = "dashed", color = "grey50") +
-  geom_abline(slope = 30000, intercept = 0, color = "darkgreen", linetype = "dotted", size = 1) +
-  geom_abline(slope = 50000, intercept = 0, color = "firebrick", linetype = "dotted", size = 1) +
-  annotate("text", x = 0.02, y = 1000, label = "WTP = 30.000 ???/QALY", color = "darkgreen", hjust = 0) +
-  annotate("text", x = 0.02, y = 1600, label = "WTP = 50.000 ???/QALY", color = "firebrick", hjust = 0) +
-  labs(
-    title = "Costos y QALYs incrementales frente al tratamiento estándar",
-    x = "QALYs Incrementales",
-    y = "Costos Incrementales (???)"
-  ) +
-  theme_minimal()
+
+
+
+
+
+
+
 
 
 
