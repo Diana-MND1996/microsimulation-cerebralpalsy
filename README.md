@@ -9,6 +9,7 @@
 # Cost-Effectiveness Analysis of Complementary and Alternative Therapies in Children with Cerebral Palsy
 #
 # Please cite the article when using this code
+
 ############################################################################################
 ################# Code of Appendix A #######################################################
 ############################################################################################
@@ -55,6 +56,7 @@ u.TAL   <- 0.80                    # utility when GMFCS III(IV-V) and being trea
 ##################################### Functions ###########################################
 
 # The MicroSim function for the simple microsimulation of the 'GMFCS III-GMFCS IV-V' model keeps track of what happens to each individual during each cycle. 
+
 
 MicroSim <- function(v.M_1, n.i, n.t, v.n, d.c, d.e, TR.out = TRUE, TS.out = TRUE, Trt = 1, seed = 1) {
   # Arguments:  
@@ -165,6 +167,7 @@ Costs <- function(M_it, Trt = 1) {
   return(c.it)
 }
 
+
 ### Health outcome function 
 # The Effs function to update the utilities at every cycle.
 
@@ -189,6 +192,7 @@ Effs <- function(M_it, Trt = 1) {
   }
   return(u.it)
 }
+
 
 ##################################### Run the simulation ##################################
 
@@ -230,9 +234,9 @@ QALYs_gained_TC_vs_no_trt <- sim_TC$te_hat - sim_no_trt$te_hat      # QALYs gain
 QALYs_gained_TAL_vs_no_trt <- sim_TAL$te_hat - sim_no_trt$te_hat    # QALYs gained between Alternative Therapy and No Treatment
 
 # Show earned QALYs
-cat("QALYs ganados con tratamiento estándar respecto a no tratamiento:", QALYs_gained_trt_vs_no_trt, "\n")
-cat("QALYs ganados con terapia complementaria respecto a no tratamiento:", QALYs_gained_TC_vs_no_trt, "\n")
-cat("QALYs ganados con terapia alternativa respecto a no tratamiento:", QALYs_gained_TAL_vs_no_trt, "\n")
+cat("QALYs gained with standard treatment vs. no treatment:", QALYs_gained_trt_vs_no_trt, "\n")
+cat("QALYs gained with complementary therapy vs. no treatment:", QALYs_gained_TC_vs_no_trt, "\n")
+cat("QALYs gained with alternative therapy vs. no treatment:", QALYs_gained_TAL_vs_no_trt, "\n")
 
 # Print the table
 table_micro <- data.frame(
@@ -249,3 +253,42 @@ table_micro <- data.frame(
 
 # Showing results
 print(table_micro)
+
+##########If we want to do Comparisons vs. standard treatment (Trt = 1)######################################################
+
+# Comparisons vs. standard treatment (Trt = 1)
+delta.C_TC_vs_Trt <- v.C[3] - v.C[2]
+delta.E_TC_vs_Trt <- v.E[3] - v.E[2]
+ICER_TC_vs_Trt <- delta.C_TC_vs_Trt / delta.E_TC_vs_Trt
+
+delta.C_TAL_vs_Trt <- v.C[4] - v.C[2]
+delta.E_TAL_vs_Trt <- v.E[4] - v.E[2]
+ICER_TAL_vs_Trt <- delta.C_TAL_vs_Trt / delta.E_TAL_vs_Trt
+
+#Table 2, comparing against the standard treatment
+
+table_micro_vs_trt <- data.frame(
+  Treatment = c("Standard treatment", "Complementary therapies", "Alternative therapies"),
+  Costs = round(v.C[2:4], 0),
+  "MCSE Costs" = round(se.C[2:4], 0),
+  QALYs = round(v.E[2:4], 3),
+  "MCSE QALYs" = round(se.E[2:4], 3),
+  "Incremental Costs vs Std" = c(0, round(delta.C_TC_vs_Trt, 0), round(delta.C_TAL_vs_Trt, 0)),
+  "Incremental QALYs vs Std" = c(0, round(delta.E_TC_vs_Trt, 3), round(delta.E_TAL_vs_Trt, 3)),
+  ICER_vs_Std = c(NA, round(ICER_TC_vs_Trt, 0), round(ICER_TAL_vs_Trt, 0))
+)
+
+print(table_micro_vs_trt)
+
+
+
+
+
+
+
+
+
+
+
+
+
