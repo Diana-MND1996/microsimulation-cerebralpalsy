@@ -9,7 +9,6 @@
 # Cost-Effectiveness Analysis of Complementary and Alternative Therapies in Children with Cerebral Palsy
 #
 # Please cite the article when using this code
-
 ############################################################################################
 ################# Code of Appendix A #######################################################
 ############################################################################################
@@ -56,7 +55,6 @@ u.TAL   <- 0.80                    # utility when GMFCS III(IV-V) and being trea
 ##################################### Functions ###########################################
 
 # The MicroSim function for the simple microsimulation of the 'GMFCS III-GMFCS IV-V' model keeps track of what happens to each individual during each cycle. 
-
 
 MicroSim <- function(v.M_1, n.i, n.t, v.n, d.c, d.e, TR.out = TRUE, TS.out = TRUE, Trt = 1, seed = 1) {
   # Arguments:  
@@ -167,7 +165,6 @@ Costs <- function(M_it, Trt = 1) {
   return(c.it)
 }
 
-
 ### Health outcome function 
 # The Effs function to update the utilities at every cycle.
 
@@ -192,7 +189,6 @@ Effs <- function(M_it, Trt = 1) {
   }
   return(u.it)
 }
-
 
 ##################################### Run the simulation ##################################
 
