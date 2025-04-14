@@ -24,6 +24,10 @@ v.M_1 <- rep("GMFCS I-II", n.i)       # All start in the healthy state (H: GMFCS
 d.c   <- d.e <- 0.03               # Descuento de costos y QALYs al 3%
 v.Trt <- c("No Treatment", "Standard treatment", "Complementary therapies", "Alternative therapies")
 
+# Note: For coding efficiency, "Complementary therapies" and "Alternative therapies" are shorthand labels. 
+# Both represent combinations with the standard treatment, and their associated costs include it. 
+# Full labels would be: "Complementary therapies + standard treatment" and "Alternative therapies + standard treatment".
+
 # Transition probabilities (per cycle ajusted to GMFCS level)
 p.HD    <- 0.002                   # probability to die when GMFCS I-II
 p.HS1   <- 0.08                    # probability to become GMFCS III when GMFCS I-II
