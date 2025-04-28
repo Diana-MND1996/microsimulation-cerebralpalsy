@@ -1,6 +1,6 @@
 **Microsimulation modeling in R for pediatric patients with cerebral palsy**
 
-This GitHub repository provides the code explained in the paper: Nova Díaz Diana Marcela, Aguilar Albesa Sergio, Eduardo Sánchez Iriso
+This GitHub repository provides the code explained in the paper: Nova Díaz Diana Marcela, Aguilar Albesa Sergio, Eduardo Sánchez Iriso.
 Cost-Effectiveness of Complementary and Alternative Therapies for Children with Cerebral Palsy: Evidence from Real-World Data and Microsimulation Modelling
 
 
