@@ -5,9 +5,11 @@
 # This code forms the basis for the microsimulation model of the article: 
 #
 # Diana Marcela Nova Díaz, Sergio Aguilera Albesa, Eduardo Sánchez Iriso. 
-# Microsimulation modeling for health decision sciences using R: A tutorial. 
-# Cost-Effectiveness Analysis of Complementary and Alternative Therapies in Children with Cerebral Palsy
-#
+# Microsimulation modeling for health decision sciences using R: A tutorial.
+
+# Cost-Effectiveness of Complementary and Alternative Therapies for Children with Cerebral Palsy: 
+# Evidence from Real-World Data and Microsimulation Modelling
+
 # Please cite the article when using this code
 
 ############################################################################################
@@ -26,7 +28,7 @@ d.c   <- d.e <- 0.03               # Descuento de costos y QALYs al 3%
 v.Trt <- c("No Treatment", "Standard treatment", "Complementary therapies", "Alternative therapies")
 
 # Note: For coding efficiency, "Complementary therapies" and "Alternative therapies" are shorthand labels. 
-# Both represent combinations with the standard treatment, and their associated costs include it. 
+# Both actually represent combinations with the standard treatment, and their associated costs include it. 
 # Full labels would be: "Complementary therapies + standard treatment" and "Alternative therapies + standard treatment".
 
 # Transition probabilities (per cycle ajusted to GMFCS level)
@@ -173,7 +175,7 @@ Costs <- function(M_it, Trt = 1) {
 
 
 ### Health outcome function 
-# The Effs function to update the utilities at every cycle.
+  # The Effs function to update the utilities at every cycle.
 
 Effs <- function(M_it, Trt = 1) {
   # M_it: health state occupied by individual i at cycle t (character variable)
@@ -228,12 +230,12 @@ se.E <- c(sd(sim_no_trt$te), sd(sim_trt$te), sd(sim_TC$te), sd(sim_TAL$te)) / sq
 # Calcular los costos y QALYs incrementales
 delta.C <- v.C[2] - v.C[1]    # calculate incremental costs
 delta.E <- v.E[2] - v.E[1]    # calculate incremental QALYs
-se.delta.C <- sd(sim_trt$tc - sim_no_trt$tc) / sqrt(n.i)  # # Monte Carlo squared error (MCSE) of incremental costs
+se.delta.C <- sd(sim_trt$tc - sim_no_trt$tc) / sqrt(n.i)  # Monte Carlo squared error (MCSE) of incremental costs
 se.delta.E <- sd(sim_trt$te - sim_no_trt$te) / sqrt(n.i)  # Monte Carlo squared error (MCSE) of incremental QALYs
 ICER <- delta.C / delta.E    # calculate the ICER
 
 # Calculate earned QALYs
-QALYs_gained_trt_vs_no_trt <- sim_trt$te_hat - sim_no_trt$te_hat   # QALYs gained between Standard Treatment and No Treatment
+QALYs_gained_trt_vs_no_trt <- sim_trt$te_hat - sim_no_trt$te_hat    # QALYs gained between Standard Treatment and No Treatment
 QALYs_gained_TC_vs_no_trt <- sim_TC$te_hat - sim_no_trt$te_hat      # QALYs gained between Complementary Therapy and No Treatment
 QALYs_gained_TAL_vs_no_trt <- sim_TAL$te_hat - sim_no_trt$te_hat    # QALYs gained between Alternative Therapy and No Treatment
 
@@ -283,6 +285,19 @@ table_micro_vs_trt <- data.frame(
 )
 
 print(table_micro_vs_trt)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
