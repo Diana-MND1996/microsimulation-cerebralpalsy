@@ -4,8 +4,6 @@
 # This code forms the basis for the microsimulation model of the article: 
 #
 # Diana Marcela Nova Díaz, Sergio Aguilera Albesa, Eduardo Sánchez Iriso. 
-# Microsimulation modeling for health decision sciences using R: A tutorial.
-
 # Cost-Effectiveness of Complementary and Alternative Therapies for Children with Cerebral Palsy: 
 # Evidence from Real-World Data and Microsimulation Modelling
 
@@ -20,7 +18,7 @@
 # Model input
 n.i   <- 100000                     # Number of individuals, here is the number of patients in the study
 n.t   <- 30                       # 30-year time horizon
-v.n   <- c("GMFCS I-II", "GMFCS III", "GMFCS IV-V", "Dead")  # Health statuses: GMFCS I-II (Near-healthy: H), GMFCS III (Sick: S1), GMFCS IV-V (Sick: S2), Dead (D)
+v.n   <- c("GMFCS I-II", "GMFCS III", "GMFCS IV-V", "Dead")  # Health statuses: GMFCS I-II (Near-healthy: H), GMFCS III (Sick: S1), GMFCS IV-V (Sicker: S2), Dead (D)
 n.s   <- length(v.n)               # The number of health states
 v.M_1 <- rep("GMFCS I-II", n.i)       # All start in the healthy state (H: GMFCS I-II)
 d.c   <- d.e <- 0.03               # Descuento de costos y QALYs al 3%
