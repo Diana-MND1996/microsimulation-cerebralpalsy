@@ -4,9 +4,11 @@
 # This code forms the basis for the microsimulation model of the article: 
 #
 # Diana Marcela Nova Díaz, Sergio Aguilera Albesa, Eduardo Sánchez Iriso. 
-# Microsimulation modeling for health decision sciences using R: A tutorial. 
-# Cost-Effectiveness Analysis of Complementary and Alternative Therapies in Children with Cerebral Palsy
-#
+# Microsimulation modeling for health decision sciences using R: A tutorial.
+
+# Cost-Effectiveness of Complementary and Alternative Therapies for Children with Cerebral Palsy: 
+# Evidence from Real-World Data and Microsimulation Modelling
+
 # Please cite the article when using this code
 
 ############################################################################################
@@ -18,14 +20,14 @@
 # Model input
 n.i   <- 100000                     # Number of individuals, here is the number of patients in the study
 n.t   <- 30                       # 30-year time horizon
-v.n   <- c("GMFCS I-II", "GMFCS III", "GMFCS IV-V", "Dead")  # Health statuses: GMFCS I-II (Near-healthy: H), GMFCS III (Sick: S1), GMFCS IV-V (Sicker: S2), Dead (D)
+v.n   <- c("GMFCS I-II", "GMFCS III", "GMFCS IV-V", "Dead")  # Health statuses: GMFCS I-II (Near-healthy: H), GMFCS III (Sick: S1), GMFCS IV-V (Sick: S2), Dead (D)
 n.s   <- length(v.n)               # The number of health states
 v.M_1 <- rep("GMFCS I-II", n.i)       # All start in the healthy state (H: GMFCS I-II)
 d.c   <- d.e <- 0.03               # Descuento de costos y QALYs al 3%
 v.Trt <- c("No Treatment", "Standard treatment", "Complementary therapies", "Alternative therapies")
 
 # Note: For coding efficiency, "Complementary therapies" and "Alternative therapies" are shorthand labels. 
-# Both represent combinations with the standard treatment, and their associated costs include it. 
+# Both actually represent combinations with the standard treatment, and their associated costs include it. 
 # Full labels would be: "Complementary therapies + standard treatment" and "Alternative therapies + standard treatment".
 
 # Transition probabilities (per cycle ajusted to GMFCS level)
@@ -282,10 +284,6 @@ table_micro_vs_trt <- data.frame(
 )
 
 print(table_micro_vs_trt)
-
-
-
-
 
 
 
