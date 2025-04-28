@@ -1,8 +1,8 @@
 **Microsimulation modeling in R for pediatric patients with cerebral palsy.**
 
 This GitHub repository provides the code explained in the paper: 
-Nova Díaz Diana Marcela, Aguilar Albesa Sergio, Eduardo Sánchez Iriso Cost-Effectiveness of Complementary and Alternative Therapies for Children with Cerebral Palsy: 
-Evidence from Real-World Data and Microsimulation Modelling
+Nova Díaz Diana Marcela, Aguilar Albesa Sergio, Eduardo Sánchez Iriso 
+Cost-Effectiveness of Complementary and Alternative Therapies for Children with Cerebral Palsy:Evidence from Real-World Data and Microsimulation Modelling
 
 
 This repository includes the R scripts used to perform a cost-effectiveness analysis of complementary and alternative therapies (CAT) in children with cerebral palsy (CP). The analysis uses real-world clinical data collected from our study population and applies a microsimulation model at the individual level to evaluate the long-term outcomes of these therapies in patients with CP.
