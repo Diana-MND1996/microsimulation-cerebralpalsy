@@ -6,11 +6,11 @@
 # Diana Marcela Nova Díaz, Sergio Aguilera Albesa, Eduardo Sánchez Iriso. 
 # Cost-Effectiveness of Complementary and Alternative Therapies for Children with Cerebral Palsy: 
 # Evidence from Real-World Data and Microsimulation Modelling
-#
+
 # Please cite the article when using this code
 
 ############################################################################################
-################# Code of Appendix A #######################################################
+################# Code of Appendix A.2 #######################################################
 ############################################################################################
 #rm(list = ls())  # remove any variables in R's memory 
 
