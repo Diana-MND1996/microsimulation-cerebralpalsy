@@ -10,7 +10,7 @@
 # Cost-Effectiveness of Complementary and Alternative Therapies for Children with Cerebral Palsy: 
 # Evidence from Real-World Data and Microsimulation Modelling
 
-# Please cite the article when using this code
+# Cost-Effectiveness Microsimulation Model for Complementary and Alternative Therapies in Children with Cerebral Palsy
 
 This repository contains the R scripts used for the cost-effectiveness analysis of complementary and alternative therapies (CATs) in children with cerebral palsy (CP). The analysis combines real-world clinical data with short-term statistical modelling and long-term individual-level microsimulation.
 
@@ -24,9 +24,9 @@ This repository contains the R scripts used for the cost-effectiveness analysis 
 
 ## Files Included
 
-- `MICROSIM_PHE.R`: Microsimulation model structure and parameters.
-- `Microsim_AlterTherapies.R`: Analysis of alternative therapies (e.g., homeopathy, Peto Method).
-- `Microsim_CompleTherapies.R`: Analysis of complementary therapies (e.g., Speech therapy, physiotherapy).
+- [MICROSIM_PHE.R](MICROSIM_PHE.R): Microsimulation model structure and parameters.
+- [Microsim_AlterTherapies.R](Microsim_AlterTherapies.R): Analysis of alternative therapies (e.g., homeopathy, Peto Method).
+- [Microsim_CompleTherapies.R](Microsim_CompleTherapies.R): Analysis of complementary therapies (e.g., Therasuit, physiotherapy).
 
 ## Instructions
 
@@ -35,10 +35,3 @@ Each script can be run independently in RStudio. It is recommended to have the f
 For any questions, please contact:  
 **Diana Marcela Nova Díaz**  
 Email: dianamarcela.nova@unavarra.es
-
-
-
-
-
-
-
