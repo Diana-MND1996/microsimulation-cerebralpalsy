@@ -16,13 +16,13 @@
 
 ##################################### Model input #########################################
 # Model input
-n.i   <- 100000                     # Number of individuals, here is the number of patients in the study
-n.t   <- 30                       # 30-year time horizon
+n.i   <- 100000                    # Number of individuals, here is the number of patients in the study
+n.t   <- 30                        # 30-year time horizon
 v.n   <- c("GMFCS I-II", "GMFCS III", "GMFCS IV-V", "Dead")  # Health statuses: GMFCS I-II (Near-healthy: H), GMFCS III (Sick: S1), GMFCS IV-V (Sicker: S2), Dead (D)
 n.s   <- length(v.n)               # The number of health states
-v.M_1 <- rep("GMFCS I-II", n.i)       # All start in the healthy state (H: GMFCS I-II)
+v.M_1 <- rep("GMFCS I-II", n.i)    # All start in the healthy state (H: GMFCS I-II)
 d.c   <- d.e <- 0.03               # Descuento de costos y QALYs al 3%
-v.Trt <- c("Standard treatment", "Hippo", "Homo", "Peto", "Ther")
+v.Trt <- c("Standard treatment", "Hippotherapy", "Homeopathy", "Peto method", "Therasuit")
 
 # Transition probabilities (per cycle ajusted to GMFCS level)
 p.HD    <- 0.002                   # probability to die when GMFCS I-II
@@ -41,36 +41,36 @@ p.S2D   <- 1 - exp(- r.S2D)        # probability to die when GMFCS IV-V
 c.H     <- 4992.11                 # cost of remaining one cycle GMFCS I-II
 c.S1    <- 5611.4                  # cost of remaining one cycle GMFCS III
 c.S2    <- 5756.06                 # cost of remaining one cycle GMFCS IV-V
-c.HiI   <- 5121.66                 # cost of Hippotherapy treatment  (per cycle)
-c.HiIII   <- 10040                 # cost of Hippo treatment (per cycle)
-c.HiV <- 12073.1                   # cost of Hippo treatment (per cycle)
-c.HoI   <- 8310.85                 # cost of Homo treatment (per cycle)
-c.HoIII    <- 9770                 # cost of Homo  therapies (per cycle)
-c.HoV  <- 11228.38                 # cost of Homo therapies (per cycle)
-c.PI   <- 8350.66                  # cost of Peto treatment (per cycle)
-c.PIII    <- 7920.75               # cost of Peto therapies (per cycle)
-c.PV  <- 10843.16                  # cost of Peto therapies (per cycle)
-c.TI   <- 7887                     # cost of Ther treatment (per cycle)
-c.TIII    <- 9348                  # cost of Ther therapies (per cycle)
-c.TV  <- 11573                     # cost of Ther therapies (per cycle)
+c.HiI   <- 5121.66                 # cost of Hippotherapy (per cycle) being GMFCS I-II
+c.HiIII   <- 10040                 # cost of Hippotherapy  (per cycle) being GMFCS III
+c.HiV <- 12073.1                   # cost of Hippotherapy  (per cycle) being GMFCS IV-V
+c.HoI   <- 8310.85                 # cost of Homeopathy (per cycle)  being GMFCS I-II
+c.HoIII    <- 9770                 # cost of Homeopathy  (per cycle) being GMFCS III
+c.HoV  <- 11228.38                 # cost of Homeopathy  (per cycle)  being GMFCS IV-V
+c.PI   <- 8350.66                  # cost of Peto Method (per cycle)  being GMFCS I-II
+c.PIII    <- 7920.75               # cost of Peto Method (per cycle)  being GMFCS III
+c.PV  <- 10843.16                  # cost of Peto Method (per cycle)  being GMFCS IV-V
+c.TI   <- 7887                     # cost of Therasuit (per cycle)  being GMFCS I-II
+c.TIII    <- 9348                  # cost of Therasuit (per cycle)  being GMFCS III
+c.TV  <- 11573                     # cost of Therasuit (per cycle)  being GMFCS IV-V
 
 
 
-u.H     <- 0.7042                   # utility when GMFCS I-II 
-u.S1    <- 0.5197                   # utility when GMFCS III
-u.S2    <- 0.0527                    # utility when GMFCS IV-V
-u.HiI   <- 0.3250                    # utility when GMFCS I and being treated with Hippo
-u.HiIII   <- 0.8783                    # utility when GMFCS III and being treated with Hippo
-u.HiV <- 0.2970                    # utility when GMFCS IV-V and being treated with Hippo
-u.HoI   <- 0.8792                    # utility when GMFCS I and being treated with Homo
-u.HoIII    <- 0.7751                    # utility when GMFCS III and being treated with Homo
-u.HoV   <- 0.3246                    # utility when GMFCS IV-V and being treated with Homo
-u.PI    <- 0.8702                    # utility when GMFCS I and being treated with Peto 
-u.PIII   <- 0.7963                    # utility when GMFCS III and being treated with Peto 
-u.PV   <- 0.3390                    # utility when GMFCS IV-V and being treated with Peto
-u.TI    <- 1                    # utility when GMFCS I and being treated with Ther
-u.TIII   <- 0.7549                    # utility when GMFCS III and being treated with Ther 
-u.TV   <- 0.3993                    # utility when GMFCS IV-V and being treated with Ther 
+u.H     <- 0.7042                  # utility when GMFCS I-II 
+u.S1    <- 0.5197                  # utility when GMFCS III
+u.S2    <- 0.0527                  # utility when GMFCS IV-V
+u.HiI   <- 0.7615                  # utility when GMFCS I-II and being treated with Hippotherapy
+u.HiIII   <- 0.8783                # utility when GMFCS III and being treated with Hippotherapy
+u.HiV <- 0.2970                    # utility when GMFCS IV-V and being treated with Hippotherapy
+u.HoI   <- 0.8792                  # utility when GMFCS I-II and being treated with Homeopathy
+u.HoIII    <- 0.7751               # utility when GMFCS III and being treated with Homeopathy
+u.HoV   <- 0.3246                  # utility when GMFCS IV-V and being treated with Homeopathy
+u.PI    <- 0.8702                  # utility when GMFCS I-II and being treated with Peto Method
+u.PIII   <- 0.7963                 # utility when GMFCS III and being treated with Peto Method 
+u.PV   <- 0.3390                   # utility when GMFCS IV-V and being treated with Peto Method
+u.TI    <- 1                       # utility when GMFCS I-II and being treated with Therasuit
+u.TIII   <- 0.7549                 # utility when GMFCS III and being treated with Therasuit
+u.TV   <- 0.3993                   # utility when GMFCS IV-V and being treated with Therasuit 
 
 
 
@@ -232,23 +232,23 @@ Effs <- function(M_it, Trt = 1) {
 ##################################### Run the simulation ##################################
 
 sim_S_trt  <- MicroSim(v.M_1, n.i, n.t, v.n, d.c, d.e, Trt = 0)   # run for Standard treatment
-sim_Hi     <- MicroSim(v.M_1, n.i, n.t, v.n, d.c, d.e, Trt = 1)   # run for Hi
-sim_Ho     <- MicroSim(v.M_1, n.i, n.t, v.n, d.c, d.e, Trt = 2)   # run for Ho therapies
-sim_P    <- MicroSim(v.M_1, n.i, n.t, v.n, d.c, d.e, Trt = 3)   # run for P therapies
-sim_T    <- MicroSim(v.M_1, n.i, n.t, v.n, d.c, d.e, Trt = 4)   # run for T therapies
+sim_Hi     <- MicroSim(v.M_1, n.i, n.t, v.n, d.c, d.e, Trt = 1)   # run for Hippotherapy
+sim_Ho     <- MicroSim(v.M_1, n.i, n.t, v.n, d.c, d.e, Trt = 2)   # run for Homeopathy
+sim_P    <- MicroSim(v.M_1, n.i, n.t, v.n, d.c, d.e, Trt = 3)   # run for Peto Method
+sim_T    <- MicroSim(v.M_1, n.i, n.t, v.n, d.c, d.e, Trt = 4)   # run for Therasuit
 
 
 
 cat("Average cost with standard treatment:", sim_S_trt$tc_hat, "\n")
-cat("Average cost with Hi therapy:", sim_Hi$tc_hat, "\n")
-cat("Average cost with Ho therapy:", sim_Ho$tc_hat, "\n")
-cat("Average cost with P therapy:", sim_P$tc_hat, "\n")
-cat("Average cost with T therapy:", sim_T$tc_hat, "\n")
+cat("Average cost with Hippotherapy:", sim_Hi$tc_hat, "\n")
+cat("Average cost with Homeopathy:", sim_Ho$tc_hat, "\n")
+cat("Average cost with Peto Method:", sim_P$tc_hat, "\n")
+cat("Average cost with Therasuit:", sim_T$tc_hat, "\n")
 cat("Average QALYs with standard treatment:", sim_S_trt$te_hat, "\n")
-cat("Average QALYs with Hi therapy:", sim_Hi$te_hat, "\n")
-cat("Average QALYs with Ho therapy:", sim_Ho$te_hat, "\n")
-cat("Average QALYs with P  therapy:", sim_P$te_hat, "\n")
-cat("Average QALYs with T  therapy:", sim_T$te_hat, "\n")
+cat("Average QALYs with Hippotherapy:", sim_Hi$te_hat, "\n")
+cat("Average QALYs with Homeopathy:", sim_Ho$te_hat, "\n")
+cat("Average QALYs with Peto Method:", sim_P$te_hat, "\n")
+cat("Average QALYs with Therasuit:", sim_T$te_hat, "\n")
 
 ################################# Cost-effectiveness analysis #############################
 
@@ -268,21 +268,21 @@ se.delta.E <- sd(sim_Hi$te - sim_S_trt$te) / sqrt(n.i)  # Monte Carlo squared er
 ICER <- delta.C / delta.E    # calculate the ICER
 
 # Calculate earned QALYs
-QALYs_gained_Hi_vs_S_trt <- sim_Hi$te_hat - sim_S_trt$te_hat   # QALYs gained between hi and st Treatment
-QALYs_gained_Ho_vs_S_trt <- sim_Ho$te_hat - sim_S_trt$te_hat      # QALYs gained between Ho and St Treatment
-QALYs_gained_P_vs_S_trt <- sim_P$te_hat - sim_S_trt$te_hat    # QALYs gained between P Therapy and St Treatment
-QALYs_gained_T_vs_S_trt <- sim_T$te_hat - sim_S_trt$te_hat      # QALYs gained between T Therapy and St Treatment
+QALYs_gained_Hi_vs_S_trt <- sim_Hi$te_hat - sim_S_trt$te_hat   # QALYs gained between hippotherapy and st Treatment
+QALYs_gained_Ho_vs_S_trt <- sim_Ho$te_hat - sim_S_trt$te_hat      # QALYs gained between Homeopathy and St Treatment
+QALYs_gained_P_vs_S_trt <- sim_P$te_hat - sim_S_trt$te_hat    # QALYs gained between Peto Method and St Treatment
+QALYs_gained_T_vs_S_trt <- sim_T$te_hat - sim_S_trt$te_hat      # QALYs gained between Therasuit and St Treatment
 
 # Show earned QALYs
-cat("QALYs gained with Hippo vs. St treatment:", QALYs_gained_Hi_vs_S_trt, "\n")
-cat("QALYs gained with Homo therapy vs. St treatment:", QALYs_gained_Ho_vs_S_trt, "\n")
-cat("QALYs gained with Peto therapy vs. St treatment:", QALYs_gained_P_vs_S_trt, "\n")
-cat("QALYs gained with Thera therapy vs. St treatment:", QALYs_gained_T_vs_S_trt, "\n")
+cat("QALYs gained with Hippotherapy vs. St treatment:", QALYs_gained_Hi_vs_S_trt, "\n")
+cat("QALYs gained with Homeopathy vs. St treatment:", QALYs_gained_Ho_vs_S_trt, "\n")
+cat("QALYs gained with Peto Method vs. St treatment:", QALYs_gained_P_vs_S_trt, "\n")
+cat("QALYs gained with Therasuit vs. St treatment:", QALYs_gained_T_vs_S_trt, "\n")
 
 
 # Print the table
 table_micro <- data.frame(
-  Treatment = c("Standard treatment", "Hippo", "Homo", "Peto", "Ther"),
+  Treatment = c("Standard treatment", "Hippotherapy", "Homeopathy", "Peto Method", "Therasuit"),
   Costs = c(round(v.C[1], 0), round(v.C[2], 0), round(v.C[3], 0), round(v.C[4], 0), round(v.C[5], 0)),
   "MCSE Costs" = c(round(se.C[1], 0), round(se.C[2], 0), round(se.C[3], 0), round(se.C[4], 0), round(se.C[5], 0)),
   QALYs = c(round(v.E[1], 3), round(v.E[2], 3), round(v.E[3], 3), round(v.E[4], 3), round(v.E[5], 3)),
