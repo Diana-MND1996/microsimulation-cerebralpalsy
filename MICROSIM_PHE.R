@@ -13,15 +13,14 @@
 ################# Code of Appendix A #######################################################
 ############################################################################################
 #rm(list = ls())  # remove any variables in R's memory 
-
 ##################################### Model input #########################################
 # Model input
 n.i   <- 100000                     # Number of individuals, here is the number of patients in the study
-n.t   <- 30                       # 30-year time horizon
+n.t   <- 30                         # 30-year time horizon
 v.n   <- c("GMFCS I-II", "GMFCS III", "GMFCS IV-V", "Dead")  # Health statuses: GMFCS I-II (Near-healthy: H), GMFCS III (Sick: S1), GMFCS IV-V (Sicker: S2), Dead (D)
-n.s   <- length(v.n)               # The number of health states
-v.M_1 <- rep("GMFCS I-II", n.i)       # All start in the healthy state (H: GMFCS I-II)
-d.c   <- d.e <- 0.03               # Descuento de costos y QALYs al 3%
+n.s   <- length(v.n)                # The number of health states
+v.M_1 <- rep("GMFCS I-II", n.i)     # All start in the healthy state (H: GMFCS I-II)
+d.c   <- d.e <- 0.03                # Descuento de costos y QALYs al 3%
 v.Trt <- c("No Treatment", "Standard treatment", "Complementary therapies", "Alternative therapies")
 
 # Note: For coding efficiency, "Complementary therapies" and "Alternative therapies" are shorthand labels. 
@@ -40,6 +39,7 @@ r.S1D   <- rr.S1 * r.HD  	         # rate of death when GMFCS III
 r.S2D   <- rr.S2 * r.HD  	         # rate of death when GMFCS IV-V
 p.S1D   <- 1 - exp(- r.S1D)        # probability to die when GMFCS III
 p.S2D   <- 1 - exp(- r.S2D)        # probability to die when GMFCS IV-V
+
 
 # Cost and utility inputs (per cycle adjusted to GMFCS level)
 c.H     <- 2000                    # cost of remaining one cycle GMFCS I-II
