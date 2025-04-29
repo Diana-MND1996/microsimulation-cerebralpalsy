@@ -3,7 +3,7 @@
 ############################################################################################
 # This code forms the basis for the microsimulation model of the article: 
 #
-# Diana Marcela Nova Díaz, Sergio Aguilera Albesa, Eduardo Sánchez Iriso. 
+# Diana Marcela Nova Díaz, Sergio Aguilera Albesa, Eduardo Sánchez-Iriso. 
 # Cost-Effectiveness of Complementary and Alternative Therapies for Children with Cerebral Palsy: 
 # Evidence from Real-World Data and Microsimulation Modelling
 
@@ -256,34 +256,6 @@ table_micro <- data.frame(
 
 # Showing results
 print(table_micro)
-
-##########If we want to do Comparisons vs. standard treatment (Trt = 1)######################################################
-
-# Comparisons vs. standard treatment (Trt = 1)
-delta.C_TC_vs_Trt <- v.C[3] - v.C[2]
-delta.E_TC_vs_Trt <- v.E[3] - v.E[2]
-ICER_TC_vs_Trt <- delta.C_TC_vs_Trt / delta.E_TC_vs_Trt
-
-delta.C_TAL_vs_Trt <- v.C[4] - v.C[2]
-delta.E_TAL_vs_Trt <- v.E[4] - v.E[2]
-ICER_TAL_vs_Trt <- delta.C_TAL_vs_Trt / delta.E_TAL_vs_Trt
-
-#Table 2, comparing against the standard treatment
-
-table_micro_vs_trt <- data.frame(
-  Treatment = c("Standard treatment", "Complementary therapies", "Alternative therapies"),
-  Costs = round(v.C[2:4], 0),
-  "MCSE Costs" = round(se.C[2:4], 0),
-  QALYs = round(v.E[2:4], 3),
-  "MCSE QALYs" = round(se.E[2:4], 3),
-  "Incremental Costs vs Std" = c(0, round(delta.C_TC_vs_Trt, 0), round(delta.C_TAL_vs_Trt, 0)),
-  "Incremental QALYs vs Std" = c(0, round(delta.E_TC_vs_Trt, 3), round(delta.E_TAL_vs_Trt, 3)),
-  ICER_vs_Std = c(NA, round(ICER_TC_vs_Trt, 0), round(ICER_TAL_vs_Trt, 0))
-)
-
-print(table_micro_vs_trt)
-
-
 
 
 
