@@ -3,8 +3,8 @@
 ############################################################################################
 # This code forms the basis for the microsimulation model of the article: 
 #
-# Diana Marcela Nova Díaz, Sergio Aguilera Albesa, Eduardo Sánchez Iriso. 
-# Cost-Effectiveness of Complementary and Alternative Therapies for Children with Cerebral Palsy: 
+# Diana Marcela Nova Díaz, Sergio Aguilera Albesa, Eduardo Sánchez-Iriso. 
+# Cost-Effectiveness Analysis of Complementary and Alternative Therapies for Children with Cerebral Palsy: 
 # Evidence from Real-World Data and Microsimulation Modelling
 
 # Please cite the article when using this code
@@ -21,7 +21,7 @@ n.t   <- 30                        # 30-year time horizon
 v.n   <- c("GMFCS I-II", "GMFCS III", "GMFCS IV-V", "Dead")  # Health statuses: GMFCS I-II (Near-healthy: H), GMFCS III (Sick: S1), GMFCS IV-V (Sicker: S2), Dead (D)
 n.s   <- length(v.n)               # The number of health states
 v.M_1 <- rep("GMFCS I-II", n.i)    # All start in the healthy state (H: GMFCS I-II)
-d.c   <- d.e <- 0.03               # Descuento de costos y QALYs al 3%
+d.c   <- d.e <- 0.03               # Discount rate for costs and QALYs 3%
 v.Trt <- c("Standard treatment", "SpeechTH", "Rehab","Occupth")
 
 # Transition probabilities (per cycle ajusted to GMFCS level)
