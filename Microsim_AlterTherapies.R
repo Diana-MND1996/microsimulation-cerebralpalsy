@@ -3,8 +3,8 @@
 ############################################################################################
 # This code forms the basis for the microsimulation model of the article: 
 #
-# Diana Marcela Nova Díaz, Sergio Aguilera Albesa, Eduardo Sánchez Iriso. 
-# Cost-Effectiveness of Complementary and Alternative Therapies for Children with Cerebral Palsy: 
+# Diana Marcela Nova Díaz, Sergio Aguilera Albesa, Eduardo Sánchez-Iriso. 
+# Cost-Effectiveness Analysis of Complementary and Alternative Therapies for Children with Cerebral Palsy: 
 # Evidence from Real-World Data and Microsimulation Modelling
 
 # Please cite the article when using this code
