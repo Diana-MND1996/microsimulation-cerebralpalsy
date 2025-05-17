@@ -4,7 +4,7 @@
 # This code forms the basis for the microsimulation model of the article: 
 #
 # Diana Marcela Nova Díaz, Sergio Aguilera Albesa, Eduardo Sánchez-Iriso. 
-# Cost-Effectiveness Analysis of Complementary and Alternative Therapies for Children with Cerebral Palsy: 
+# Cost-Effectiveness Analysis of Intensive and Emerging Rehabilitation Therapies for Children with Cerebral Palsy: 
 # Evidence from Real-World Data and Microsimulation Modelling
 
 # Please cite the article when using this code
@@ -21,11 +21,11 @@ v.n   <- c("GMFCS I-II", "GMFCS III", "GMFCS IV-V", "Dead")  # Health statuses: 
 n.s   <- length(v.n)                # The number of health states
 v.M_1 <- rep("GMFCS I-II", n.i)     # All start in the healthy state (H: GMFCS I-II)
 d.c   <- d.e <- 0.03                # Discount rate for costs and QALYs 3%
-v.Trt <- c("No Treatment", "Standard treatment", "Complementary therapies", "Alternative therapies")
+v.Trt <- c("No Treatment", "Standard treatment", "Intensive Rehab therapies", "Emerging Rehab therapies")
 
-# Note: For coding efficiency, "Complementary therapies" and "Alternative therapies" are shorthand labels. 
+# Note: For coding efficiency, "Intensive rehabilitation therapies" and "Emerging rehabilitation therapies" are shorthand labels. 
 # Both actually represent combinations with the standard treatment, and their associated costs include it. 
-# Full labels would be: "Complementary therapies + standard treatment" and "Alternative therapies + standard treatment".
+# Full labels would be: "Intensive Rehab therapies + standard treatment" and "Emerging  Rehab therapies + standard treatment".
 
 # Transition probabilities (per cycle ajusted to GMFCS level)
 p.HD    <- 0.002                   # probability to die when GMFCS I-II
@@ -46,15 +46,15 @@ c.H     <- 2000                    # cost of remaining one cycle GMFCS I-II
 c.S1    <- 4000                    # cost of remaining one cycle GMFCS III
 c.S2    <- 15000                   # cost of remaining one cycle GMFCS IV-V
 c.Trt   <- 5156                    # cost of Standard treatment (per cycle)
-c.TC    <- 12820                   # cost of complementary therapies (per cycle)
-c.TAL   <- 9815                    # cost of Alternative therapies (per cycle)
+c.TC    <- 12820                   # cost of Intensive Rehab therapies (per cycle)
+c.TAL   <- 9815                    # cost of Emerging Rehab therapies (per cycle)
 
 u.H     <- 0.90                    # utility when GMFCS I-II 
 u.S1    <- 0.65                    # utility when GMFCS III
 u.S2    <- 0.50                    # utility when GMFCS IV-V
 u.Trt   <- 0.75                    # utility when GMFCS III(IV-V) and being treated with standard treatment
-u.TC    <- 0.85                    # utility when GMFCS III(IV-V) and being treated with complementary therapies
-u.TAL   <- 0.80                    # utility when GMFCS III(IV-V) and being treated with Alternative therapies
+u.TC    <- 0.85                    # utility when GMFCS III(IV-V) and being treated with Intensive Rehab therapies
+u.TAL   <- 0.80                    # utility when GMFCS III(IV-V) and being treated with Emerging Rehab therapies
 
 ##################################### Functions ###########################################
 
@@ -201,18 +201,18 @@ Effs <- function(M_it, Trt = 1) {
 
 sim_no_trt  <- MicroSim(v.M_1, n.i, n.t, v.n, d.c, d.e, Trt = 0)   # run for no treatment
 sim_trt     <- MicroSim(v.M_1, n.i, n.t, v.n, d.c, d.e, Trt = 1)   # run for Standard treatment
-sim_TC      <- MicroSim(v.M_1, n.i, n.t, v.n, d.c, d.e, Trt = 2)   # run for Complementary therapies
-sim_TAL     <- MicroSim(v.M_1, n.i, n.t, v.n, d.c, d.e, Trt = 3)   # run for Alternative therapies
+sim_TC      <- MicroSim(v.M_1, n.i, n.t, v.n, d.c, d.e, Trt = 2)   # run for Intensive Rehab therapies
+sim_TAL     <- MicroSim(v.M_1, n.i, n.t, v.n, d.c, d.e, Trt = 3)   # run for Emerging Rehab therapies
 
 
 cat("Average cost without treatment:", sim_no_trt$tc_hat, "\n")
 cat("Average cost with standard treatment:", sim_trt$tc_hat, "\n")
-cat("Average cost with complementary therapy:", sim_TC$tc_hat, "\n")
-cat("Average cost with alternative therapy:", sim_TAL$tc_hat, "\n")
+cat("Average cost with Intensive Rehab therapy:", sim_TC$tc_hat, "\n")
+cat("Average cost with Emerging Rehab therapy:", sim_TAL$tc_hat, "\n")
 cat("Average QALYs without treatment:", sim_no_trt$te_hat, "\n")
 cat("Average QALYs with standard treatment:", sim_trt$te_hat, "\n")
-cat("Average QALYs with complementary therapy:", sim_TC$te_hat, "\n")
-cat("Average QALYs with alternative therapy:", sim_TAL$te_hat, "\n")
+cat("Average QALYs with Intensive Rehab therapy:", sim_TC$te_hat, "\n")
+cat("Average QALYs with Emerging Rehab therapy:", sim_TAL$te_hat, "\n")
 
 ################################# Cost-effectiveness analysis #############################
 
@@ -233,17 +233,17 @@ ICER <- delta.C / delta.E    # calculate the ICER
 
 # Calculate earned QALYs
 QALYs_gained_trt_vs_no_trt <- sim_trt$te_hat - sim_no_trt$te_hat   # QALYs gained between Standard Treatment and No Treatment
-QALYs_gained_TC_vs_no_trt <- sim_TC$te_hat - sim_no_trt$te_hat      # QALYs gained between Complementary Therapy and No Treatment
-QALYs_gained_TAL_vs_no_trt <- sim_TAL$te_hat - sim_no_trt$te_hat    # QALYs gained between Alternative Therapy and No Treatment
+QALYs_gained_TC_vs_no_trt <- sim_TC$te_hat - sim_no_trt$te_hat      # QALYs gained between Intensive Rehab therapy and No Treatment
+QALYs_gained_TAL_vs_no_trt <- sim_TAL$te_hat - sim_no_trt$te_hat    # QALYs gained between Emerging Rehab Therapy and No Treatment
 
 # Show earned QALYs
 cat("QALYs gained with standard treatment vs. no treatment:", QALYs_gained_trt_vs_no_trt, "\n")
-cat("QALYs gained with complementary therapy vs. no treatment:", QALYs_gained_TC_vs_no_trt, "\n")
-cat("QALYs gained with alternative therapy vs. no treatment:", QALYs_gained_TAL_vs_no_trt, "\n")
+cat("QALYs gained with Intensive Rehab therapy vs. no treatment:", QALYs_gained_TC_vs_no_trt, "\n")
+cat("QALYs gained with Emerging Rehab therapy vs. no treatment:", QALYs_gained_TAL_vs_no_trt, "\n")
 
 # Print the table
 table_micro <- data.frame(
-  Treatment = c("No Treatment", "Standard treatment", "Complementary therapies", "Alternative therapies"),
+  Treatment = c("No Treatment", "Standard treatment", "Intensive Rehab therapies", "Emerging Rehab therapies"),
   Costs = c(round(v.C[1], 0), round(v.C[2], 0), round(v.C[3], 0), round(v.C[4], 0)),
   "MCSE Costs" = c(round(se.C[1], 0), round(se.C[2], 0), round(se.C[3], 0), round(se.C[4], 0)),
   QALYs = c(round(v.E[1], 3), round(v.E[2], 3), round(v.E[3], 3), round(v.E[4], 3)),
