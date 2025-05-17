@@ -4,13 +4,13 @@
 # This code forms the basis for the microsimulation model of the article: 
 #
 # Diana Marcela Nova Díaz, Sergio Aguilera Albesa, Eduardo Sánchez-Iriso. 
-# Cost-Effectiveness Analysis of Complementary and Alternative Therapies for Children with Cerebral Palsy: 
+# Cost-Effectiveness Analysis of Intensive and Emerging Rehabilitation Therapies for Children with Cerebral Palsy: 
 # Evidence from Real-World Data and Microsimulation Modelling
 
 # Please cite the article when using this code
 
 ############################################################################################
-################# Code of Appendix A.2 #######################################################
+################# Code of Appendix A.2: Intensive Rehabilitation Therapies #################
 ############################################################################################
 #rm(list = ls())  # remove any variables in R's memory 
 
@@ -22,7 +22,7 @@ v.n   <- c("GMFCS I-II", "GMFCS III", "GMFCS IV-V", "Dead")  # Health statuses: 
 n.s   <- length(v.n)               # The number of health states
 v.M_1 <- rep("GMFCS I-II", n.i)    # All start in the healthy state (H: GMFCS I-II)
 d.c   <- d.e <- 0.03               # Discount rate for costs and QALYs 3%
-v.Trt <- c("Standard treatment", "SpeechTH", "Rehab","Occupth")
+v.Trt <- c("Standard treatment", "SpeechTH", "Physiotherapy","Occupth")
 
 # Transition probabilities (per cycle ajusted to GMFCS level)
 p.HD    <- 0.002                   # probability to die when GMFCS I-II
@@ -44,9 +44,9 @@ c.S2    <- 5757.18                 # cost of remaining one cycle GMFCS IV-V
 c.SpI   <- 7640                    # cost of Speech therapy (per cycle)  being GMFCS I-II
 c.SpIII   <- 12913.33              # cost of Speech therapy (per cycle)  being GMFCS III
 c.SpV <- 13579.90                  # cost of Speech therapy (per cycle)  being GMFCS IV-V
-c.RI   <- 10664.58                 # cost of Rehabilitation (per cycle)  being GMFCS I-II
-c.RIII    <- 12153.64              # cost of Rehabilitation (per cycle)  being GMFCS III
-c.RV  <- 14715.89                  # cost Rehabilitation (per cycle)     being GMFCS IV-V
+c.RI   <- 10664.58                 # cost of Physiotherapy (per cycle)  being GMFCS I-II
+c.RIII    <- 12153.64              # cost of Physiotherapy (per cycle)  being GMFCS III
+c.RV  <- 14715.89                  # cost of Physiotherapy (per cycle)     being GMFCS IV-V
 c.OI   <- 11847.5                  # cost of Occupational therapy (per cycle) being GMFCS I-II
 c.OIII    <- 12533.48              # cost of Occupational therapy (per cycle) mean value of SpIII and RIII (missing) being GMFCS III
 c.OV  <- 14985.23                  # cost of Occupational therapy (per cycle) being GMFCS IV-V
@@ -59,9 +59,9 @@ u.S2    <- 0                       # utility when GMFCS IV-V
 u.SpI   <- 0.8901                  # utility when GMFCS I-II and being treated with Speech therapy
 u.SpIII   <- 0.7907                # utility when GMFCS III and being treated with Speech therapy
 u.SpV <- 0.3034                    # utility when GMFCS IV-V and being treated with Speech therapy
-u.RI   <- 0.8932                   # utility when GMFCS I-II and being treated with Rehabilitation
-u.RIII    <- 0.7791                # utility when GMFCS III and being treated with Rehabilitation
-u.RV   <- 0.34                     # utility when GMFCS IV-V and being treated with Rehabilitation
+u.RI   <- 0.8932                   # utility when GMFCS I-II and being treated with Physiotherapy
+u.RIII    <- 0.7791                # utility when GMFCS III and being treated with Physiotherapy
+u.RV   <- 0.34                     # utility when GMFCS IV-V and being treated with Physiotherapy
 u.OI    <- 0.8584                  # utility when GMFCS I-II and being treated with Occupational therapy 
 u.OIII   <- 0.7849                 # utility when GMFCS III and being treated with Occupational therapy mean value of SpIII and RIII (missing) 
 u.OV   <- 0.3593                   # utility when GMFCS IV-V and being treated with Occupational therapy 
@@ -217,17 +217,17 @@ Effs <- function(M_it, Trt = 1) {
 
 sim_S_trt  <- MicroSim(v.M_1, n.i, n.t, v.n, d.c, d.e, Trt = 0)   # run for Standard treatment
 sim_Sp     <- MicroSim(v.M_1, n.i, n.t, v.n, d.c, d.e, Trt = 1)   # run for Speech therapy
-sim_Reh     <- MicroSim(v.M_1, n.i, n.t, v.n, d.c, d.e, Trt = 2)   # run for Rehabilitation
+sim_Reh     <- MicroSim(v.M_1, n.i, n.t, v.n, d.c, d.e, Trt = 2)   # run for Physiotherapy
 sim_Ocup    <- MicroSim(v.M_1, n.i, n.t, v.n, d.c, d.e, Trt = 3)   # run for Occupational
 
 
 cat("Average cost with standard treatment:", sim_S_trt$tc_hat, "\n")
 cat("Average cost with Speech therapy:", sim_Sp$tc_hat, "\n")
-cat("Average cost with Rehabilitation therapy:", sim_Reh$tc_hat, "\n")
+cat("Average cost with Physiotherapy:", sim_Reh$tc_hat, "\n")
 cat("Average cost with Occupational therapy:", sim_Ocup$tc_hat, "\n")
 cat("Average QALYs with standard treatment:", sim_S_trt$te_hat, "\n")
 cat("Average QALYs with Speech therapy:", sim_Sp$te_hat, "\n")
-cat("Average QALYs with Rehabilitation therapy:", sim_Reh$te_hat, "\n")
+cat("Average QALYs with Physiotherapy:", sim_Reh$te_hat, "\n")
 cat("Average QALYs with Occupational  therapy:", sim_Ocup$te_hat, "\n")
 
 ################################# Cost-effectiveness analysis #############################
@@ -249,17 +249,17 @@ ICER <- delta.C / delta.E    # calculate the ICER
 
 # Calculate earned QALYs
 QALYs_gained_Sp_vs_S_trt <- sim_Sp$te_hat - sim_S_trt$te_hat   # QALYs gained between Speech therapy and Standard Treatment
-QALYs_gained_Reh_vs_S_trt <- sim_Reh$te_hat - sim_S_trt$te_hat      # QALYs gained between Rehabilitation and Standard Treatment
+QALYs_gained_Reh_vs_S_trt <- sim_Reh$te_hat - sim_S_trt$te_hat      # QALYs gained between Physiotherapy and Standard Treatment
 QALYs_gained_Ocup_vs_S_trt <- sim_Ocup$te_hat - sim_S_trt$te_hat    # QALYs gained between Occupational therapy and Standard Treatment
 
 # Show earned QALYs
 cat("QALYs gained with Speech therapy vs. St treatment:", QALYs_gained_Sp_vs_S_trt, "\n")
-cat("QALYs gained with Rehabilitation vs. St treatment:", QALYs_gained_Reh_vs_S_trt, "\n")
+cat("QALYs gained with Physiotherapy vs. St treatment:", QALYs_gained_Reh_vs_S_trt, "\n")
 cat("QALYs gained with Occupational therapy vs. St treatment:", QALYs_gained_Ocup_vs_S_trt, "\n")
 
 # Print the table
 table_micro <- data.frame(
-  Treatment = c("Standard treatment", "SpeechTH", "Rehab","Occupth"),
+  Treatment = c("Standard treatment", "SpeechTH", "Physiotherapy","Occupth"),
   Costs = c(round(v.C[1], 0), round(v.C[2], 0), round(v.C[3], 0), round(v.C[4], 0)),
   "MCSE Costs" = c(round(se.C[1], 0), round(se.C[2], 0), round(se.C[3], 0), round(se.C[4], 0)),
   QALYs = c(round(v.E[1], 3), round(v.E[2], 3), round(v.E[3], 3), round(v.E[4], 3)),
