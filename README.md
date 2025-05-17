@@ -16,7 +16,7 @@ This repository includes the R scripts used to perform a cost-effectiveness anal
   ***Sections***
 
 - [MICROSIM_PHE.R](MICROSIM_PHE.R): Microsimulation model structure and parameters. Cost-effectiveness analysis of Intensive Rehabilitation Therapies, Emerging Rehabilitation Therapies, standard treatment versus no treatment.
-- [Microsim_AlterTherapies.R](Microsim_AlterTherapies.R): Cost-effectiveness analysis of each of the Emerging Rehabilitation Therapies versus standard treatment.
+- [Microsim_AlterTherapies.R](Microsim_EmergingRehabTherapies.R): Cost-effectiveness analysis of each of the Emerging Rehabilitation Therapies versus standard treatment.
 - [Microsim_CompleTherapies.R](Microsim_CompleTherapies.R): Cost-effectiveness analysis of each of Intensive Rehabilitation Therapies versus standard treatment.
 
 ***List of Contributors***:
